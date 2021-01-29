@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View  } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { Input } from 'react-native-elements'
+import { Input, Button, Text } from 'react-native-elements'
+import { auth } from '../firebase'
 
 export default function RegisterScreen({ navigation }) {
     const [name, setName] = useState('')
@@ -10,8 +11,21 @@ export default function RegisterScreen({ navigation }) {
     const [password, setPassword] = useState('')
     const [imageUrl, setImageUrl] = useState('')
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerBackTitle: "Login",
+        })
+        // return () => {  };
+    }, [navigation])
+
     const register = () => {
-        
+        auth.createUserWithEmailAndPassword(email, password).then((authUser) => { 
+            authUser.user.update({
+                displayName: name,
+                photoURL: imageUrl || 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295430__340.png'
+            });
+        })
+        .catch((error) => alert(error.message))
     }
 
     return (
@@ -28,11 +42,25 @@ export default function RegisterScreen({ navigation }) {
 
                 <Input placeholder="Profile Pic (optional)" value={imageUrl} type="text"  onChangeText={text => setImageUrl(text)} onSubmitEditing={register} />
             </View>
+            <Button raised containerStyle={styles.button}  onPress={register} title="Register" />
+            <View style={{ height: 100 }}/>
         </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {},
-    inputContainer: {}
+    container: {
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        backgroundColor:'white'
+    },
+    inputContainer: {
+        width:300,
+    },
+    button:{
+        width:200,
+        marginTop: 10,
+    }
 })
