@@ -20,7 +20,7 @@ export default function RegisterScreen({ navigation }) {
 
     const register = () => {
         auth.createUserWithEmailAndPassword(email, password).then((authUser) => { 
-            authUser.user.update({
+            authUser.user.updateProfile({
                 displayName: name,
                 photoURL: imageUrl || 'https://cdn.pixabay.com/photo/2016/03/31/19/58/avatar-1295430__340.png'
             });
@@ -42,7 +42,7 @@ export default function RegisterScreen({ navigation }) {
 
                 <Input placeholder="Profile Pic (optional)" value={imageUrl} type="text"  onChangeText={text => setImageUrl(text)} onSubmitEditing={register} />
             </View>
-            <Button raised containerStyle={styles.button}  onPress={register} title="Register" />
+            <Button raised containerStyle={[styles.button]}  onPress={register} title="Register" />
             <View style={{ height: 100 }}/>
         </KeyboardAvoidingView>
     )
