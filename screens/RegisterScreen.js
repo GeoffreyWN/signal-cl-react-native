@@ -13,7 +13,7 @@ export default function RegisterScreen({ navigation }) {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerBackTitle: "Login",
+            headerBackTitle: "Back to Login",
         })
         // return () => {  };
     }, [navigation])

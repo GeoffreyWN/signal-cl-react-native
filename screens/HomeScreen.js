@@ -25,7 +25,7 @@ const HomeScreen = ({navigation}) => {
         return unsubscribe
     }, [])
 
-    console.log(auth.currentUser)
+    // console.log(auth.currentUser)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -36,9 +36,6 @@ const HomeScreen = ({navigation}) => {
             headerLeft: () => (
                 <View style={{ marginLeft: 20 }}>
                     <TouchableOpacity activeOpacity={0.5} onPress={signOutUser} >
-                    {/* <Avatar rounded source={{
-                        uri: "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375__340.png"
-                    }}/> */}
                         <Avatar rounded source={{ uri: auth?.currentUser?.photoURL }} />
                     </TouchableOpacity>
                 </View>

@@ -78,9 +78,9 @@ const ChatScreen = ({ navigation, route }) => {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <>
                         <ScrollView contentContainerStyle={{ paddingTop: 15 }} >
-                            {messages.map(({ id, data }) => {
+                            {messages.map(({ id, data }) => (
                                 data.email === auth.currentUser.email ? (
-                                    <View style={styles.receiver}>
+                                    <View key={id} style={styles.receiver}>
                                         <Avatar position="absolute" rounded bottom={-15} right={-5} size={30} source={{ uri: data.photoURL }}
                                             containerStyle={{
                                                 position: "absolute",
@@ -91,7 +91,7 @@ const ChatScreen = ({ navigation, route }) => {
 
                                     </View>) :
                                     (
-                                        <View style={styles.sender}>
+                                        <View key={id} style={styles.sender}>
                                             <Avatar
                                                 position="absolute" rounded bottom={-15} left={-5} size={30} source={{ uri: data.photoURL }}
                                                 containerStyle={{
@@ -103,13 +103,13 @@ const ChatScreen = ({ navigation, route }) => {
                                             <Text style={styles.senderName}> {data.displayName}</Text>
                                         </View>
                                     )
-                            })}
+                            ))}
                         </ScrollView>
                         <View style={styles.footer}>
                             <TextInput value={input} onChangeText={(text) => setInput(text)} placeholder="Signal Message" style={styles.textInput} onSubmitEditing={sendMessage} />
 
                             <TouchableOpacity onPress={sendMessage} activeOpacity={0.5}>
-                                <Ionicons name="send" size={24} color="#2868E6" />
+                                <Ionicons name="send" size={24} color="#2B68E6" />
                             </TouchableOpacity>
                         </View>
                     </>
