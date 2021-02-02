@@ -13,7 +13,7 @@ const AddChatScreen = ({ navigation }) => {
             headerBackTitle: "Chats"
         })
         // return () => { };
-    }, [])
+    }, [navigation])
 
     const createChat = async () => {
         await db.collection("chats").add({ chatName: input }).then(() => navigation.goBack()).catch(error => alert(error))
@@ -23,7 +23,7 @@ const AddChatScreen = ({ navigation }) => {
             <Input placeholder="Enter a chat name" value={input} onChangeText={(text) => { setInput(text) }} onSubmitEditing={createChat} leftIcon={
                 <Icon name="wechat" type="antdesign" size={24} color="black" />
             } />
-            <Button onPress={createChat} title="Create new Chat" />
+            <Button disabled={!input} onPress={createChat} title="Create new Chat" />
         </View>
     )
 }
